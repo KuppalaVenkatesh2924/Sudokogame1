@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sudoku Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Sudoku Game</h1>
+
+    <!-- Game Mode / Difficulty Selection inside game page -->
+    <div class="game-mode">
+        <label for="difficultySelect">Game Mode:</label>
+        <select id="difficultySelect"></select>
+    </div>
+
+    <div class="controls">
+        <div class="timer">Time: <span id="time">00:00</span></div>
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="wrong">Wrong Attempts: <span id="wrong">0</span>/5</div>
+    </div>
+
+    <div class="buttons">
+        <button id="startGame">Start</button>
+        <button id="pauseResume">Pause</button>
+        <button id="restartGame">Restart</button>
+        <button id="endGame">End Game</button>
+        <button id="hintBtn">Hint</button>
+    </div>
+
+    <div class="sudoku-grid" id="sudoku-grid"></div>
+
+    <div class="leaderboard">
+        <h2>Leaderboard</h2>
+        <ul id="leaderboard-list"></ul>
+    </div>
+
+    <!-- Score Pop-up -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h2>Game Over!</h2>
+            <p>Your Score: <span id="popup-score"></span></p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+// Fill difficultySelect from URL or default
+const urlParams = new URLSearchParams(window.location.search);
+const difficultyFromURL = urlParams.get('difficulty') || 'easy';
+const difficultySelect = document.getElementById('difficultySelect');
+
+['easy','medium','hard'].forEach(d => {
+    const option = document.createElement('option');
+    option.value = d;
+    option.textContent = d.charAt(0).toUpperCase() + d.slice(1);
+    if(d===difficultyFromURL) option.selected = true;
+    difficultySelect.appendChild(option);
+});
+</script>
+</body>
+</html>
